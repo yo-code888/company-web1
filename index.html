@@ -1,13 +1,146 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<title>My Site</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cool Website</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+}
+
+header{
+display:flex;
+justify-content:space-between;
+padding:20px 60px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+}
+
+.hero{
+height:80vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.hero h1{
+font-size:60px;
+margin-bottom:10px;
+}
+
+.hero p{
+font-size:20px;
+opacity:0.8;
+}
+
+.btn{
+margin-top:30px;
+padding:15px 30px;
+background:#00d4ff;
+border:none;
+border-radius:30px;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+.cards{
+display:flex;
+justify-content:center;
+gap:30px;
+padding:60px;
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(10px);
+padding:30px;
+border-radius:20px;
+width:250px;
+text-align:center;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+}
+
+footer{
+text-align:center;
+padding:20px;
+opacity:0.6;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h1>Hello GitHub</h1>
-<p>はじめてのサイト</p>
+<header>
+
+<div class="logo">MY SITE</div>
+
+<nav>
+<a href="#">Home</a>
+<a href="#">About</a>
+<a href="#">Contact</a>
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>Welcome</h1>
+<p>Cool modern website design</p>
+
+<button class="btn">Start</button>
+
+</section>
+
+<section class="cards">
+
+<div class="card">
+<h2>Fast</h2>
+<p>高速なサイト</p>
+</div>
+
+<div class="card">
+<h2>Modern</h2>
+<p>モダンデザイン</p>
+</div>
+
+<div class="card">
+<h2>Simple</h2>
+<p>シンプル構造</p>
+</div>
+
+</section>
+
+<footer>
+
+<p>© 2026 My Website</p>
+
+</footer>
 
 </body>
 </html>
