@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Next Experience</title>
+<title>Future Experience</title>
 
 <style>
 
@@ -15,7 +15,7 @@ font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 }
 
 body{
-background:#000;
+background:black;
 color:white;
 overflow-x:hidden;
 }
@@ -24,21 +24,54 @@ overflow-x:hidden;
 
 header{
 position:fixed;
-width:100%;
 top:0;
+width:100%;
 display:flex;
 justify-content:space-between;
 padding:20px 60px;
-background:rgba(0,0,0,0.6);
+background:rgba(0,0,0,0.5);
 backdrop-filter:blur(10px);
-z-index:100;
+z-index:10;
 }
 
 nav a{
-color:white;
 margin-left:20px;
+color:white;
 text-decoration:none;
-font-size:14px;
+}
+
+/* ヒーロー */
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+z-index:2;
+position:relative;
+}
+
+.hero h1{
+font-size:80px;
+margin-bottom:10px;
+}
+
+.hero p{
+color:#aaa;
+font-size:22px;
+}
+
+/* 3D canvas */
+
+#bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
 }
 
 /* セクション */
@@ -49,8 +82,6 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-text-align:center;
-padding:40px;
 opacity:0;
 transform:translateY(80px);
 transition:1s;
@@ -61,61 +92,25 @@ opacity:1;
 transform:translateY(0);
 }
 
-h1{
-font-size:70px;
-margin-bottom:10px;
-}
-
-p{
-font-size:22px;
-color:#aaa;
-}
-
-/* ヒーロー */
-
-.hero{
-background:linear-gradient(180deg,#000,#111);
-}
-
-/* パララックス */
-
-.parallax{
-background:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee") center/cover;
-background-attachment:fixed;
-}
-
 /* カード */
 
 .cards{
 display:flex;
-gap:30px;
+gap:40px;
 margin-top:40px;
 }
 
 .card{
-width:260px;
-padding:30px;
-background:#111;
+background:rgba(255,255,255,0.05);
+padding:40px;
 border-radius:20px;
+width:260px;
+backdrop-filter:blur(10px);
 transition:0.4s;
 }
 
 .card:hover{
 transform:translateY(-15px) scale(1.05);
-background:#1c1c1e;
-}
-
-/* ボタン */
-
-button{
-margin-top:20px;
-padding:12px 30px;
-border:none;
-border-radius:30px;
-background:white;
-color:black;
-cursor:pointer;
-font-size:16px;
 }
 
 footer{
@@ -130,48 +125,41 @@ color:#777;
 
 <body>
 
+<canvas id="bg"></canvas>
+
 <header>
-
-<div>Next</div>
-
+<div>Future</div>
 <nav>
 <a href="#">Home</a>
-<a href="#">Features</a>
+<a href="#">Tech</a>
 <a href="#">Contact</a>
 </nav>
-
 </header>
 
 <section class="hero">
-<h1>未来を、体験。</h1>
-<p>次世代のデザイン</p>
-<button>Start</button>
-</section>
-
-<section class="parallax">
-<h1>美しい体験</h1>
-<p>スクロールで世界が変わる</p>
+<h1>未来を、創る。</h1>
+<p>次世代のWeb体験</p>
 </section>
 
 <section>
 
-<h1>Features</h1>
+<h1>Technology</h1>
 
 <div class="cards">
 
 <div class="card">
-<h2>Fast</h2>
-<p>超高速パフォーマンス</p>
+<h2>3D</h2>
+<p>リアルタイム3D表示</p>
 </div>
 
 <div class="card">
-<h2>Modern</h2>
-<p>最新UIデザイン</p>
+<h2>Motion</h2>
+<p>滑らかなアニメーション</p>
 </div>
 
 <div class="card">
-<h2>Creative</h2>
-<p>自由な表現</p>
+<h2>Future</h2>
+<p>次世代UI</p>
 </div>
 
 </div>
@@ -179,15 +167,19 @@ color:#777;
 </section>
 
 <footer>
-© 2026 Next Experience
+© 2026 Future Experience
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
 <script>
+
+/* スクロール表示 */
 
 const sections=document.querySelectorAll("section")
 
 function reveal(){
-
 const trigger=window.innerHeight*0.85
 
 sections.forEach(section=>{
@@ -196,13 +188,55 @@ const top=section.getBoundingClientRect().top
 if(top<trigger){
 section.classList.add("show")
 }
-
 })
-
 }
 
 window.addEventListener("scroll",reveal)
 reveal()
+
+/* 3D背景 */
+
+const scene=new THREE.Scene()
+const camera=new THREE.PerspectiveCamera(
+75,
+window.innerWidth/window.innerHeight,
+0.1,
+1000
+)
+
+const renderer=new THREE.WebGLRenderer({
+canvas:document.getElementById("bg")
+})
+
+renderer.setSize(window.innerWidth,window.innerHeight)
+
+const geometry=new THREE.TorusKnotGeometry(1,0.3,100,16)
+const material=new THREE.MeshStandardMaterial({
+color:0x00ffff,
+wireframe:true
+})
+
+const mesh=new THREE.Mesh(geometry,material)
+scene.add(mesh)
+
+const light=new THREE.PointLight(0xffffff)
+light.position.set(5,5,5)
+scene.add(light)
+
+camera.position.z=4
+
+function animate(){
+
+requestAnimationFrame(animate)
+
+mesh.rotation.x+=0.01
+mesh.rotation.y+=0.01
+
+renderer.render(scene,camera)
+
+}
+
+animate()
 
 </script>
 
