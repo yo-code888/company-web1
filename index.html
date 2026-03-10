@@ -3,17 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apple Style Site</title>
+<title>Next Experience</title>
 
 <style>
 
-body{
+*{
 margin:0;
-font-family:-apple-system, BlinkMacSystemFont, sans-serif;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+body{
 background:#000;
 color:white;
-text-align:center;
+overflow-x:hidden;
 }
+
+/* ナビ */
+
+header{
+position:fixed;
+width:100%;
+top:0;
+display:flex;
+justify-content:space-between;
+padding:20px 60px;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
+z-index:100;
+}
+
+nav a{
+color:white;
+margin-left:20px;
+text-decoration:none;
+font-size:14px;
+}
+
+/* セクション */
 
 section{
 height:100vh;
@@ -21,6 +49,8 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+text-align:center;
+padding:40px;
 opacity:0;
 transform:translateY(80px);
 transition:1s;
@@ -33,7 +63,7 @@ transform:translateY(0);
 
 h1{
 font-size:70px;
-margin:10px;
+margin-bottom:10px;
 }
 
 p{
@@ -41,27 +71,57 @@ font-size:22px;
 color:#aaa;
 }
 
+/* ヒーロー */
+
 .hero{
 background:linear-gradient(180deg,#000,#111);
 }
 
-.feature{
-background:#111;
+/* パララックス */
+
+.parallax{
+background:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee") center/cover;
+background-attachment:fixed;
 }
 
-.feature2{
+/* カード */
+
+.cards{
+display:flex;
+gap:30px;
+margin-top:40px;
+}
+
+.card{
+width:260px;
+padding:30px;
+background:#111;
+border-radius:20px;
+transition:0.4s;
+}
+
+.card:hover{
+transform:translateY(-15px) scale(1.05);
 background:#1c1c1e;
 }
+
+/* ボタン */
 
 button{
 margin-top:20px;
 padding:12px 30px;
 border:none;
-border-radius:20px;
+border-radius:30px;
 background:white;
 color:black;
-font-size:16px;
 cursor:pointer;
+font-size:16px;
+}
+
+footer{
+padding:40px;
+text-align:center;
+color:#777;
 }
 
 </style>
@@ -70,29 +130,65 @@ cursor:pointer;
 
 <body>
 
+<header>
+
+<div>Next</div>
+
+<nav>
+<a href="#">Home</a>
+<a href="#">Features</a>
+<a href="#">Contact</a>
+</nav>
+
+</header>
+
 <section class="hero">
-<h1>未来を、手に。</h1>
-<p>シンプルで美しい体験</p>
-<button>詳しく見る</button>
+<h1>未来を、体験。</h1>
+<p>次世代のデザイン</p>
+<button>Start</button>
 </section>
 
-<section class="feature">
-<h1>高速。</h1>
-<p>圧倒的パフォーマンス</p>
+<section class="parallax">
+<h1>美しい体験</h1>
+<p>スクロールで世界が変わる</p>
 </section>
 
-<section class="feature2">
-<h1>美しい。</h1>
-<p>ミニマルデザイン</p>
+<section>
+
+<h1>Features</h1>
+
+<div class="cards">
+
+<div class="card">
+<h2>Fast</h2>
+<p>超高速パフォーマンス</p>
+</div>
+
+<div class="card">
+<h2>Modern</h2>
+<p>最新UIデザイン</p>
+</div>
+
+<div class="card">
+<h2>Creative</h2>
+<p>自由な表現</p>
+</div>
+
+</div>
+
 </section>
+
+<footer>
+© 2026 Next Experience
+</footer>
 
 <script>
 
 const sections=document.querySelectorAll("section")
 
-window.addEventListener("scroll",()=>{
+function reveal(){
 
-const trigger=window.innerHeight*0.8
+const trigger=window.innerHeight*0.85
 
 sections.forEach(section=>{
 const top=section.getBoundingClientRect().top
@@ -103,7 +199,10 @@ section.classList.add("show")
 
 })
 
-})
+}
+
+window.addEventListener("scroll",reveal)
+reveal()
 
 </script>
 
