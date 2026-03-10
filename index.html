@@ -3,50 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Animated Site</title>
+<title>Apple Style Site</title>
 
 <style>
 
 body{
 margin:0;
+font-family:-apple-system, BlinkMacSystemFont, sans-serif;
+background:#000;
+color:white;
+text-align:center;
+}
+
+section{
 height:100vh;
 display:flex;
+flex-direction:column;
 justify-content:center;
 align-items:center;
-background:linear-gradient(135deg,#1f1c2c,#928dab);
-font-family:Arial;
+opacity:0;
+transform:translateY(80px);
+transition:1s;
 }
 
-.box{
-width:200px;
-height:200px;
-background:#00e5ff;
+.show{
+opacity:1;
+transform:translateY(0);
+}
+
+h1{
+font-size:70px;
+margin:10px;
+}
+
+p{
+font-size:22px;
+color:#aaa;
+}
+
+.hero{
+background:linear-gradient(180deg,#000,#111);
+}
+
+.feature{
+background:#111;
+}
+
+.feature2{
+background:#1c1c1e;
+}
+
+button{
+margin-top:20px;
+padding:12px 30px;
+border:none;
 border-radius:20px;
-display:flex;
-justify-content:center;
-align-items:center;
+background:white;
+color:black;
+font-size:16px;
 cursor:pointer;
-transition:0.5s;
-}
-
-.move{
-transform:rotate(360deg) scale(1.5);
-background:#ff4d6d;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<div class="box" onclick="moveBox()">CLICK</div>
+<section class="hero">
+<h1>未来を、手に。</h1>
+<p>シンプルで美しい体験</p>
+<button>詳しく見る</button>
+</section>
+
+<section class="feature">
+<h1>高速。</h1>
+<p>圧倒的パフォーマンス</p>
+</section>
+
+<section class="feature2">
+<h1>美しい。</h1>
+<p>ミニマルデザイン</p>
+</section>
 
 <script>
 
-function moveBox(){
-const box=document.querySelector(".box")
-box.classList.toggle("move")
+const sections=document.querySelectorAll("section")
+
+window.addEventListener("scroll",()=>{
+
+const trigger=window.innerHeight*0.8
+
+sections.forEach(section=>{
+const top=section.getBoundingClientRect().top
+
+if(top<trigger){
+section.classList.add("show")
 }
+
+})
+
+})
 
 </script>
 
